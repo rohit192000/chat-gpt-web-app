@@ -34,12 +34,15 @@ router.post('/new-product', (req, res) => {
   Product.forge({
     name: req.body.name,
     description: req.body.description,
-    price: req.body.price
+    price: req.body.price,
+    quantity : req.body.quantity,
+    image_url : req.body.image
   }).save()
     .then(product => {
       res.json(product);
     })
     .catch(err => {
+      console.log(err)
       res.status(500).json({ message: err.message });
     });
 });
@@ -54,7 +57,9 @@ router.put('/update/:id', (req, res) => {
         product.save({
           name: req.body.name,
           description: req.body.description,
-          price: req.body.price
+          price: req.body.price,
+          image_url : req.body.image,
+          quantity : req.body.quantity
         })
           .then(product => {
             res.json(product);
